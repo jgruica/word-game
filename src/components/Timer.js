@@ -1,18 +1,17 @@
 import React, { Component } from 'react'
 
-
-class Dice extends Component {
+class Timer extends Component {
     constructor(props) {
         super(props)
   }
 
   render() {
     return (
-      <div class="dice">
+      <div class="timer">
         
       </div>
     )
   }
 }
 
-export default Dice
+export default Timer

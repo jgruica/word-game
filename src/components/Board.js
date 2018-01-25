@@ -1,15 +1,41 @@
 import React, { Component } from 'react'
-import Dice from './Dice'
 
 class Board extends Component {
-    constructor(props) {
-        super(props)
+  constructor(props) {
+    super(props)
   }
 
   render() {
     return (
       <div class="board">
-          <Dice />
+        <table>
+          <tbody>
+            <tr>
+              <td><button> 1 </button></td>
+              <td><button> 1 </button></td>
+              <td><button> 1 </button></td>
+              <td><button> 1 </button></td>
+            </tr>
+            <tr>
+              <td><button> 1 </button></td>
+              <td><button> 1 </button></td>
+              <td><button> 1 </button></td>
+              <td><button> 1 </button></td>
+            </tr>
+            <tr>
+              <td><button> 1 </button></td>
+              <td><button> 1 </button></td>
+              <td><button> 1 </button></td>
+              <td><button> 1 </button></td>
+            </tr>
+            <tr>
+              <td><button> 1 </button></td>
+              <td><button> 1 </button></td>
+              <td><button> 1 </button></td>
+              <td><button> 1 </button></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     )
   }

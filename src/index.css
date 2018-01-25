@@ -12,4 +12,44 @@ body {
   .logo {
     margin-top: 20px;
   }
+
+  .board {
+    text-align: center;
+  }
+
+  .board table {
+    width: 400px;
+    height: 400px;
+    margin: 0 auto;
+    border: 1px solid black;
+}
+
+.board button {
+  width: 100px;
+  height: 100px;
+  font-size: 50px;
+}
+
+.word-submit {
+  margin-top: 30px;
+}
+
+.word-submit input {
+  background-color: #F57921;
+  width: 20%;
+  font-size: 50px;
+  border: none;
+  border-bottom: 2px solid black;
+}
+
+.word-submit input:focus {
+  outline: none;
+}
+
+.word-submit button {
+  margin-left: 20px;
+  width: 80px;
+  height: 30px;
+  border-radius: 50%;
+}
   

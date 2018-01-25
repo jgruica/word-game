@@ -8,7 +8,8 @@ class WordSubmit extends Component {
   render() {
     return (
       <div class="word-submit">
-        
+        <input type="text" />
+        <button> submit </button>
       </div>
     )
   }
