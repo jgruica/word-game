@@ -2,13 +2,14 @@ body {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
+    background-color: #F57921;
   }
   
-  .app {
+  .boggle {
     text-align: center;
   }
-  
-  .app-header {
-    font-family: 'Archivo Black', sans-serif;
-    font-size: 30px;
+
+  .logo {
+    margin-top: 20px;
   }
+  

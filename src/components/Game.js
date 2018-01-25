@@ -1,5 +1,8 @@
-import React, { Component } from 'react';
-import Board from './Board';
+import React, { Component } from 'react'
+import Board from './Board'
+import Score from './Score'
+import WordSubmit from './WordSubmit'
+
 class Game extends Component {
   constructor(props) {
     super(props)
@@ -12,8 +15,9 @@ class Game extends Component {
     return (
         <div className='game'>
           <div className='game-board'>
+            <Score />
             <Board />
-            BLAA
+            <WordSubmit />
           </div>
         </div>
   

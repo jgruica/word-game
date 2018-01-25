@@ -1,15 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
+import Logo from './images/logo.png'
 import Game from './components/Game'
 
 class App extends Component {
-  render () {
+  render() {
     return (
-      <div className='app'>
-        <div className='app-header'>
-          <h1> Boggle </h1>
-        </div>
+      <div className='boggle'>
+        <img src={Logo} class="logo" />
         <div className='main-game'>
           <Game />
         </div>
