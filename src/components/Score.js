@@ -8,7 +8,7 @@ class Score extends Component {
 
   render() {
     return (
-      <div class="score">
+      <div className="score">
         
       </div>
     )

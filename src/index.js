@@ -8,7 +8,7 @@ class App extends Component {
   render() {
     return (
       <div className='boggle'>
-        <img src={Logo} class="logo" />
+        <img src={Logo} className="logo" />
         <div className='main-game'>
           <Game />
         </div>

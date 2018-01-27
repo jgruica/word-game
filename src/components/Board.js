@@ -7,33 +7,17 @@ class Board extends Component {
 
   render() {
     return (
-      <div class="board">
+      <div className="board">
+
         <table>
           <tbody>
-            <tr>
-              <td><button> 1 </button></td>
-              <td><button> 1 </button></td>
-              <td><button> 1 </button></td>
-              <td><button> 1 </button></td>
-            </tr>
-            <tr>
-              <td><button> 1 </button></td>
-              <td><button> 1 </button></td>
-              <td><button> 1 </button></td>
-              <td><button> 1 </button></td>
-            </tr>
-            <tr>
-              <td><button> 1 </button></td>
-              <td><button> 1 </button></td>
-              <td><button> 1 </button></td>
-              <td><button> 1 </button></td>
-            </tr>
-            <tr>
-              <td><button> 1 </button></td>
-              <td><button> 1 </button></td>
-              <td><button> 1 </button></td>
-              <td><button> 1 </button></td>
-            </tr>
+            {this.props.board.map((row, rowIndex) => 
+              <tr key={rowIndex}> 
+                {row.split('').map((column, columnIndex) => 
+                  <td key={columnIndex}><button> {column} </button></td>
+                )}
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
