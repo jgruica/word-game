@@ -1,15 +1,11 @@
 import React, { Component } from 'react'
 
 class WordSubmit extends Component {
-    constructor(props) {
-        super(props)
-  }
-
   render() {
     return (
       <div className="word-submit">
-        <input type="text" />
-        <button> submit </button>
+        <input type="text" word={this.props.word} onChange={this.props.handleChange}/>
+        <button onClick={this.props.submitWord}> SUBMIT WORD </button>
       </div>
     )
   }

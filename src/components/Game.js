@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Board from './Board'
 import Timer from './Timer'
+import ListOfWords from './ListOfWords'
 import Score from './Score'
 import WordSubmit from './WordSubmit'
 import _ from 'lodash'
@@ -9,11 +10,13 @@ class Game extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      board: this.generateRandomBoard()
+      board: this.generateRandomBoard(),
+      word: '',
+      words: []
     };
   }
 
-  generateRandomBoard () {
+  generateRandomBoard() {
     const diceCombinations = [
       'AAEEGN', 'ABBJOO', 'ACHOPS', 'AFFKPS',
       'AOOTTW', 'CIMOTU', 'DEILRX', 'DELRVY',
@@ -29,15 +32,31 @@ class Game extends Component {
       .map(characters => characters.join(''))
   }
 
+  handleChange = (e) => {
+    this.setState({ word: e.target.value.toUpperCase() });
+  }
+
+  submitWord = (e) => {
+    const inputWord = this.state.word
+    this.setState(prevState => {
+      return {
+        word: '',
+        words: _.concat(prevState.words, inputWord)
+      }
+    })
+
+  }
+
 
   render() {
     return (
       <div className='game'>
         <div className='game-board'>
           <Timer />
+          <ListOfWords words={this.state.words} />
           <Score />
           <Board board={this.state.board} />
-          <WordSubmit />
+          <WordSubmit word={this.state.word} words={this.state.words} handleChange={this.handleChange} submitWord={this.submitWord} />
         </div>
       </div>
 
