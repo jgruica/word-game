@@ -11,7 +11,7 @@ class Score extends Component {
               <th>POINTS</th>
             </tr>
             <tr>
-              <td></td>
+              <td> {this.props.score} </td>
             </tr>
           </tbody>
         </table>

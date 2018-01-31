@@ -5,7 +5,7 @@ class WordSubmit extends Component {
     return (
       <div className="word-submit">
         <input type="text" word={this.props.word} onChange={this.props.handleChange}/>
-        <button onClick={this.props.submitWord}> SUBMIT WORD </button>
+        <button onClick={this.props.submitWord} > SUBMIT WORD </button>
       </div>
     )
   }
