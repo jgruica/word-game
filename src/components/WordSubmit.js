@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 class WordSubmit extends Component {
+
   render() {
     return (
       <div className="word-submit">

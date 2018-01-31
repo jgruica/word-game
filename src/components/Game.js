@@ -34,27 +34,32 @@ class Game extends Component {
   }
 
   scoreResult = () => {
-    if(this.state.word.length === 3) {
+    if (this.state.word.length === 3) {
       this.state.score += 1;
     }
-    if(this.state.word.length === 4) {
+    if (this.state.word.length === 4) {
       this.state.score += 2;
     }
-    if(this.state.word.length === 5) {
+    if (this.state.word.length === 5) {
       this.state.score += 3;
     }
-    if(this.state.word.length === 6) {
+    if (this.state.word.length === 6) {
       this.state.score += 4;
     }
-    if(this.state.word.length === 7) {
+    if (this.state.word.length === 7) {
       this.state.score += 5;
     }
 
-    this.setState({score: this.state.score})
+    this.setState({ score: this.state.score })
   }
 
   handleChange = (e) => {
     this.setState({ word: e.target.value.toUpperCase() });
+  }
+
+  clearInput = () => {
+    console.log(1)
+    this.setState({ word: [] })
   }
 
   submitWord = (e) => {
@@ -67,6 +72,7 @@ class Game extends Component {
       }
     })
     this.scoreResult()
+    this.clearInput()
   }
 
 
@@ -76,7 +82,7 @@ class Game extends Component {
         <div className='game-board'>
           <Timer />
           <ListOfWords words={this.state.words} />
-          <Score word={this.state.word}  score={this.state.score} scoreResult={this.scoreResult}/>
+          <Score word={this.state.word} score={this.state.score} scoreResult={this.scoreResult} />
           <Board board={this.state.board} />
           <WordSubmit word={this.state.word} words={this.state.words} handleChange={this.handleChange} submitWord={this.submitWord} scoreResult={this.scoreResult} />
         </div>

@@ -105,5 +105,11 @@ body {
   text-decoration:none;
 }
 
+.timer {
+  position: absolute;
+  right: 1100px;
+  top: 300px;
+}
+
 
   
