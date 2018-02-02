@@ -27,7 +27,6 @@ body {
     background-color: #3e8bd9
 }
 
-
 .board button {
   width: 100px;
   height: 100px;
@@ -42,13 +41,17 @@ body {
 }
 
 .word-submit {
-  margin-top: 30px;
+  width: 400px;
+  display: block;
+  margin: 0 auto;
 }
 
 .word-submit input {
+  padding-left: 20px;
+  margin-top:20px;
   background-color: #F57921;
-  width: 20%;
-  font-size: 50px;
+  width: 100%;
+  font-size: 30px;
   border: none;
   border-bottom: 4px solid #3e8bd9;
   color: white;
@@ -60,13 +63,18 @@ body {
 }
 
 .word-submit button {
-  position: absolute;
-  left: 850px;
-  margin-left: 20px;
-  width: 80px;
+  margin-top: 20px;
+  width: 100%;
   height: 50px;
-  border-radius: 50%;
   color: #3e8bd9;
+  font-size: 30px;
+  font-weight: bold;
+  background-color: white;
+  border-radius: 10%;
+}
+
+.word-submit button:active {
+  background-color: rgb(246, 142, 67);
 }
 
 
@@ -84,7 +92,6 @@ body {
   border-collapse: collapse;
   position: absolute;
   left: 1000px;
-  border: 5px solid #3e8bd9;
   font-size: 25px;
   border-radius: 5%;
 }
@@ -103,12 +110,23 @@ body {
   font-weight:normal; 
   font-size:18px; 
   text-decoration:none;
+  text-align: left;
 }
 
 .timer {
   position: absolute;
   right: 1100px;
   top: 300px;
+}
+
+.game-over {
+  position: absolute;
+  left:300px;
+  top: 300px;
+  color: red;
+  opacity: 0.5;
+  font-size: 150px;
+  transform: rotate(20deg);
 }
 
 

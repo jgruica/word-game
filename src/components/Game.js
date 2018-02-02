@@ -4,6 +4,7 @@ import Timer from './Timer'
 import ListOfWords from './ListOfWords'
 import Score from './Score'
 import WordSubmit from './WordSubmit'
+import GameOver from './GameOver'
 import _ from 'lodash'
 
 class Game extends Component {
@@ -13,7 +14,9 @@ class Game extends Component {
       board: this.generateRandomBoard(),
       word: '',
       words: [],
-      score: 0
+      score: 0,
+      currentScore: 0,
+      gaveOver: false
     };
   }
 
@@ -34,32 +37,18 @@ class Game extends Component {
   }
 
   scoreResult = () => {
-    if (this.state.word.length === 3) {
-      this.state.score += 1;
-    }
-    if (this.state.word.length === 4) {
-      this.state.score += 2;
-    }
-    if (this.state.word.length === 5) {
-      this.state.score += 3;
-    }
-    if (this.state.word.length === 6) {
-      this.state.score += 4;
-    }
-    if (this.state.word.length === 7) {
-      this.state.score += 5;
-    }
-
-    this.setState({ score: this.state.score })
+    this.setState(prevState => {
+      const currentScore = this.state.word.length < 3 ? 0 : this.state.word.length - 2
+      return {
+        currentScore,
+        score: this.state.score + currentScore
+      }
+    })
   }
+
 
   handleChange = (e) => {
     this.setState({ word: e.target.value.toUpperCase() });
-  }
-
-  clearInput = () => {
-    console.log(1)
-    this.setState({ word: [] })
   }
 
   submitWord = (e) => {
@@ -72,7 +61,14 @@ class Game extends Component {
       }
     })
     this.scoreResult()
-    this.clearInput()
+  }
+
+  timeIsOver = () => {
+    this.setState(prevState => {
+      return {
+        gameOver: true
+      }
+    })
   }
 
 
@@ -80,11 +76,24 @@ class Game extends Component {
     return (
       <div className='game'>
         <div className='game-board'>
-          <Timer />
-          <ListOfWords words={this.state.words} />
-          <Score word={this.state.word} score={this.state.score} scoreResult={this.scoreResult} />
-          <Board board={this.state.board} />
-          <WordSubmit word={this.state.word} words={this.state.words} handleChange={this.handleChange} submitWord={this.submitWord} scoreResult={this.scoreResult} />
+          {this.state.gameOver === true ?
+          <div>
+            <GameOver />
+            <ListOfWords words={this.state.words} currentScore={this.state.currentScore} />
+              <Score word={this.state.word} score={this.state.score} scoreResult={this.scoreResult} />
+              <Board board={this.state.board} />
+              <WordSubmit word={this.state.word} words={this.state.words} handleChange={this.handleChange} submitWord={this.submitWord} scoreResult={this.scoreResult} />
+            </div>
+            
+            :
+            <div>
+              <Timer timeIsOver={this.timeIsOver} />
+              <ListOfWords words={this.state.words} currentScore={this.state.currentScore} />
+              <Score word={this.state.word} score={this.state.score} scoreResult={this.scoreResult} />
+              <Board board={this.state.board} />
+              <WordSubmit word={this.state.word} words={this.state.words} handleChange={this.handleChange} submitWord={this.submitWord} scoreResult={this.scoreResult} />
+        </div>}
+
         </div>
       </div>
 
