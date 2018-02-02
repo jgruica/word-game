@@ -122,12 +122,15 @@ body {
 .game-over {
   position: absolute;
   left:300px;
-  top: 300px;
+  top: 140px;
+  padding-right: 300px;
+  padding-top: 100px;
   color: red;
   opacity: 0.5;
-  font-size: 150px;
+  font-size: 200px;
   transform: rotate(20deg);
   -webkit-animation:colorchange 10s infinite alternate;
+  height: 100%;
 }
 
 @-webkit-keyframes colorchange {
