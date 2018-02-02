@@ -1,10 +1,6 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
 
-function wordScore(word) {
-  return word.length < 3 ? 0 : word.length - 2
-}
-
 class Score extends Component {
   render() {
     return (
@@ -15,7 +11,7 @@ class Score extends Component {
               <th>POINTS</th>
             </tr>
             <tr>
-              <td> {_.sumBy(this.props.words, word => wordScore(word))} </td>
+              <td> {_.sumBy(this.props.words, scoredWord => scoredWord.score)} </td>
             </tr>
           </tbody>
         </table>

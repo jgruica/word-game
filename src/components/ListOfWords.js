@@ -1,19 +1,15 @@
 import React, { Component } from 'react'
 
-function wordScore(word) {
-    return word.length < 3 ? 0 : word.length - 2
-}
-
 class ListOfWords extends Component {
     render() {
         return (
             <div className="listOfWords">
-                <ul> WORDS 
-                <br/> <br/>
-                {this.props.words.map((name, index) =>
-                  <li key={index}>{name} {wordScore(name)}</li>
-                )}
-        </ul>
+                <ul> WORDS
+                <br /> <br />
+                    {this.props.words.map((scoredWord, index) =>
+                        <li key={index}>{scoredWord.word} {scoredWord.score}</li>
+                    )}
+                </ul>
             </div>
         )
     }

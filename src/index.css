@@ -127,7 +127,15 @@ body {
   opacity: 0.5;
   font-size: 150px;
   transform: rotate(20deg);
+  -webkit-animation:colorchange 10s infinite alternate;
 }
 
+@-webkit-keyframes colorchange {
+  0% {
+    color: blue;
+  }
+  
+  
+}
 
   

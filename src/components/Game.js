@@ -6,10 +6,7 @@ import Score from './Score'
 import WordSubmit from './WordSubmit'
 import GameOver from './GameOver'
 import _ from 'lodash'
-
-function wordScore(word) {
-  return word.length < 3 ? 0 : word.length - 2
-}
+import { wordScore } from '../utilities'
 
 class Game extends Component {
   constructor(props) {
@@ -18,8 +15,6 @@ class Game extends Component {
       board: this.generateRandomBoard(),
       word: '',
       words: [],
-      score: 0,
-      currentScore: 0,
       gaveOver: false
     };
   }
@@ -40,32 +35,39 @@ class Game extends Component {
       .map(characters => characters.join(''))
   }
 
-  scoreResult = () => {
-    this.setState(prevState => {
-      const currentScore = wordScore(this.state.word)
-      return {
-        currentScore,
-        score: this.state.score + currentScore
-      }
-    })
-  }
-
-
   handleChange = (e) => {
     this.setState({ word: e.target.value.toUpperCase() });
   }
 
   submitWord = (e) => {
     const inputWord = this.state.word
-
-    this.setState(prevState => {
-      return {
-        word: '',
-        words: _.concat(prevState.words, inputWord)
-      }
-    })
-    this.scoreResult()
+      this.setState(prevState => {
+        return {
+          word: '',
+          words: _.concat(prevState.words, { 
+            word: inputWord, 
+            score: wordScore(inputWord) 
+          })
+        }
+      })
   }
+
+  handleKeyPress = (e) => {
+    const inputWord = this.state.word
+    if (e.key === 'Enter') {
+      this.setState(prevState => {
+        return {
+          word: '',
+          words: _.concat(prevState.words, { 
+            word: inputWord, 
+            score: wordScore(inputWord) 
+          })
+        }
+      })
+    }
+  }
+
+  
 
   timeIsOver = () => {
     this.setState(prevState => {
@@ -80,26 +82,14 @@ class Game extends Component {
     return (
       <div className='game'>
         <div className='game-board'>
-          {this.state.gameOver === true ?
-          <div>
-            <GameOver />
-            <ListOfWords words={this.state.words} currentScore={this.state.currentScore} />
-              <Score words={this.state.words} />
-              <Board board={this.state.board} />
-              <WordSubmit word={this.state.word} words={this.state.words} handleChange={this.handleChange} submitWord={this.submitWord} scoreResult={this.scoreResult} />
-            </div>
-            :
-            <div>
-              <Timer timeIsOver={this.timeIsOver} />
-              <ListOfWords words={this.state.words} currentScore={this.state.currentScore} />
-              <Score words={this.state.words} />
-              <Board board={this.state.board} />
-              <WordSubmit word={this.state.word} words={this.state.words} handleChange={this.handleChange} submitWord={this.submitWord} scoreResult={this.scoreResult} />
-        </div>}
-
+          <Timer timeIsOver={this.timeIsOver} />
+          <ListOfWords words={this.state.words} currentScore={this.state.currentScore} />
+          <Score words={this.state.words} />
+          <Board board={this.state.board} />
+          <WordSubmit word={this.state.word} words={this.state.words} handleChange={this.handleChange} submitWord={this.submitWord} handleKeyPress={this.handleKeyPress} scoreResult={this.scoreResult} />
+          {this.state.gameOver && <GameOver />}
         </div>
       </div>
-
     )
   }
 }
