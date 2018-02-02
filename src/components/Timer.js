@@ -6,7 +6,7 @@ class Timer extends Component {
   render() {
     return (
       <div className="timer">
-        <ReactCountdownClock seconds={3}
+        <ReactCountdownClock seconds={120}
           color="#3e8bd9"
           alpha={0.9}
           size={200}

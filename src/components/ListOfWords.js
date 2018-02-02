@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-// let words = ['foo','bar', 'baz']
-// let currentScore = [1,1,1]
 
-// let wordsAndScores = {}
-// words.forEach((key, i) => wordsAndScores[key] = currentScore[i])
+function wordScore(word) {
+    return word.length < 3 ? 0 : word.length - 2
+}
 
 class ListOfWords extends Component {
     render() {
@@ -12,8 +11,8 @@ class ListOfWords extends Component {
                 <ul> WORDS 
                 <br/> <br/>
                 {this.props.words.map((name, index) =>
-                  <li key={index}>{name} {this.props.currentScore}</li>
-                    )}
+                  <li key={index}>{name} {wordScore(name)}</li>
+                )}
         </ul>
             </div>
         )

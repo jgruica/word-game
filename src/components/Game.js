@@ -7,6 +7,10 @@ import WordSubmit from './WordSubmit'
 import GameOver from './GameOver'
 import _ from 'lodash'
 
+function wordScore(word) {
+  return word.length < 3 ? 0 : word.length - 2
+}
+
 class Game extends Component {
   constructor(props) {
     super(props)
@@ -38,7 +42,7 @@ class Game extends Component {
 
   scoreResult = () => {
     this.setState(prevState => {
-      const currentScore = this.state.word.length < 3 ? 0 : this.state.word.length - 2
+      const currentScore = wordScore(this.state.word)
       return {
         currentScore,
         score: this.state.score + currentScore
@@ -80,16 +84,15 @@ class Game extends Component {
           <div>
             <GameOver />
             <ListOfWords words={this.state.words} currentScore={this.state.currentScore} />
-              <Score word={this.state.word} score={this.state.score} scoreResult={this.scoreResult} />
+              <Score words={this.state.words} />
               <Board board={this.state.board} />
               <WordSubmit word={this.state.word} words={this.state.words} handleChange={this.handleChange} submitWord={this.submitWord} scoreResult={this.scoreResult} />
             </div>
-            
             :
             <div>
               <Timer timeIsOver={this.timeIsOver} />
               <ListOfWords words={this.state.words} currentScore={this.state.currentScore} />
-              <Score word={this.state.word} score={this.state.score} scoreResult={this.scoreResult} />
+              <Score words={this.state.words} />
               <Board board={this.state.board} />
               <WordSubmit word={this.state.word} words={this.state.words} handleChange={this.handleChange} submitWord={this.submitWord} scoreResult={this.scoreResult} />
         </div>}
