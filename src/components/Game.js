@@ -55,7 +55,7 @@ class Game extends Component {
   handleKeyPress = (e) => {
     const inputWord = this.state.word
     if (e.key === 'Enter') {
-      if (this.checkIsWordOnBoard(inputWord) === true) {
+      if (this.checkIsWordOnBoard(inputWord)) {
         this.setState(prevState => {
           return {
             word: '',
@@ -80,16 +80,24 @@ class Game extends Component {
 
   checkIsWordOnBoard = (word) => {
     const board = this.state.board
+    let visited;
+
     function containsWordRecursion(word, i, j) {
       if (word.length === 0) {
         return true
+        //out of the border
       } else if (i < 0 || i >= board.length) {
         return false
+        //out of the border
       } else if (j < 0 || j >= board[i].length) {
+        return false
+        //first word is not on border
+      } else if (visited[i][j]) {
         return false
       } else if (word[0] !== board[i][j]) {
         return false
       } else {
+        visited[i][j] = true
         const wordRest = word.slice(1)
         return containsWordRecursion(wordRest, i + 1, j) ||
           containsWordRecursion(wordRest, i - 1, j) ||
@@ -104,6 +112,12 @@ class Game extends Component {
 
     for (let i = 0; i < board.length; ++i) {
       for (let j = 0; j < board[i].length; ++j) {
+        visited = [
+          [false, false, false, false],
+          [false, false, false, false],
+          [false, false, false, false],
+          [false, false, false, false]
+        ]
         if (containsWordRecursion(word, i, j)) {
           return true
         }
