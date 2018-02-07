@@ -41,7 +41,7 @@ body {
 }
 
 .word-submit {
-  width: 400px;
+  width: 380px;
   display: block;
   margin: 0 auto;
 }
@@ -64,7 +64,7 @@ body {
 
 .word-submit button {
   margin-top: 20px;
-  width: 100%;
+  width: 400px;
   height: 50px;
   color: #3e8bd9;
   font-size: 30px;

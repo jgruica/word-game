@@ -41,33 +41,34 @@ class Game extends Component {
 
   submitWord = (e) => {
     const inputWord = this.state.word
-      this.setState(prevState => {
-        return {
-          word: '',
-          words: _.concat(prevState.words, { 
-            word: inputWord, 
-            score: wordScore(inputWord) 
-          })
-        }
-      })
+    this.setState(prevState => {
+      return {
+        word: '',
+        words: _.concat(prevState.words, {
+          word: inputWord,
+          score: wordScore(inputWord)
+        })
+      }
+    })
   }
 
   handleKeyPress = (e) => {
     const inputWord = this.state.word
     if (e.key === 'Enter') {
-      this.setState(prevState => {
-        return {
-          word: '',
-          words: _.concat(prevState.words, { 
-            word: inputWord, 
-            score: wordScore(inputWord) 
-          })
-        }
-      })
+      if (this.checkIsWordOnBoard(inputWord) === true) {
+        this.setState(prevState => {
+          return {
+            word: '',
+            words: _.concat(prevState.words, {
+              word: inputWord,
+              score: wordScore(inputWord)
+            })
+          }
+        })
+      }
     }
-  }
 
-  
+  }
 
   timeIsOver = () => {
     this.setState(prevState => {
@@ -76,6 +77,42 @@ class Game extends Component {
       }
     })
   }
+
+  checkIsWordOnBoard = (word) => {
+    const board = this.state.board
+    function containsWordRecursion(word, i, j) {
+      if (word.length === 0) {
+        return true
+      } else if (i < 0 || i >= board.length) {
+        return false
+      } else if (j < 0 || j >= board[i].length) {
+        return false
+      } else if (word[0] !== board[i][j]) {
+        return false
+      } else {
+        const wordRest = word.slice(1)
+        return containsWordRecursion(wordRest, i + 1, j) ||
+          containsWordRecursion(wordRest, i - 1, j) ||
+          containsWordRecursion(wordRest, i, j + 1) ||
+          containsWordRecursion(wordRest, i, j - 1) ||
+          containsWordRecursion(wordRest, i + 1, j + 1) ||
+          containsWordRecursion(wordRest, i + 1, j - 1) ||
+          containsWordRecursion(wordRest, i - 1, j + 1) ||
+          containsWordRecursion(wordRest, i - 1, j - 1)
+      }
+    }
+
+    for (let i = 0; i < board.length; ++i) {
+      for (let j = 0; j < board[i].length; ++j) {
+        if (containsWordRecursion(word, i, j)) {
+          return true
+        }
+      }
+    }
+
+    return false
+  }
+
 
 
   render() {
