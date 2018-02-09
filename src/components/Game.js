@@ -6,6 +6,7 @@ import Score from './Score'
 import WordSubmit from './WordSubmit'
 import GameOver from './GameOver'
 import _ from 'lodash'
+import axios from 'axios'
 import { wordScore } from '../utilities'
 
 class Game extends Component {
@@ -15,7 +16,8 @@ class Game extends Component {
       board: this.generateRandomBoard(),
       word: '',
       words: [],
-      gaveOver: false
+      gaveOver: false,
+      dictionaryWords: []
     };
   }
 
@@ -52,22 +54,36 @@ class Game extends Component {
     })
   }
 
+  checkWordInDictionary = () => {
+    return axios.get('/dictionary', {
+      params: {
+        inputWord: this.state.word
+      }
+    }) 
+  }
+
   handleKeyPress = (e) => {
     const inputWord = this.state.word
     if (e.key === 'Enter') {
       if (this.checkIsWordOnBoard(inputWord)) {
-        this.setState(prevState => {
-          return {
-            word: '',
-            words: _.concat(prevState.words, {
-              word: inputWord,
-              score: wordScore(inputWord)
+        this.checkWordInDictionary()
+          .then((result) => {
+            console.log(result.data)
+            this.setState(prevState => {
+              return {
+                word: '',
+                words: _.concat(prevState.words, {
+                  word: inputWord,
+                  score: wordScore(inputWord)
+                })
+              }
             })
-          }
-        })
+          })
+          .catch((error) => {
+            console.log('error')
+          })
       }
     }
-
   }
 
   timeIsOver = () => {
@@ -131,7 +147,7 @@ class Game extends Component {
 
   render() {
     return (
-      <div className='game'>
+      <div className='game' >
         <div className='game-board'>
           <Timer timeIsOver={this.timeIsOver} />
           <ListOfWords words={this.state.words} currentScore={this.state.currentScore} />

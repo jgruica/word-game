@@ -4,10 +4,10 @@ class ListOfWords extends Component {
     render() {
         return (
             <div className="listOfWords">
-                <ul> WORDS
+                <ul> 
                 <br /> <br />
                     {this.props.words.map((scoredWord, index) =>
-                        <li key={index}>{scoredWord.word} {scoredWord.score}</li>
+                        <li key={index}>{scoredWord.word} &nbsp;&nbsp;&nbsp; {scoredWord.score}</li>
                     )}
                 </ul>
             </div>

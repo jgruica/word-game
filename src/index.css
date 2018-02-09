@@ -47,7 +47,6 @@ body {
 }
 
 .word-submit input {
-  padding-left: 20px;
   margin-top:20px;
   background-color: #F57921;
   width: 100%;
@@ -64,19 +63,19 @@ body {
 
 .word-submit button {
   margin-top: 20px;
-  width: 400px;
+  width: 380px;
   height: 50px;
   color: #3e8bd9;
   font-size: 30px;
   font-weight: bold;
   background-color: white;
+  border: 1px solid #3e8bd9;
   border-radius: 10%;
 }
 
 .word-submit button:active {
   background-color: rgb(246, 142, 67);
 }
-
 
 .scoreTable {
   border-collapse: collapse;
@@ -91,6 +90,7 @@ body {
 .listOfWords {
   border-collapse: collapse;
   position: absolute;
+  top: 90px;
   left: 1000px;
   font-size: 25px;
   border-radius: 5%;
@@ -98,7 +98,6 @@ body {
 
 .listOfWords > ul {
   list-style-type: none;
-  margin-top: 15px;
   margin-right: 30px;
   font-weight: bold;
   color: white;
@@ -108,7 +107,7 @@ body {
 
 .listOfWords > ul > li {
   font-weight:normal; 
-  font-size:18px; 
+  font-size:25px; 
   text-decoration:none;
   text-align: left;
 }
