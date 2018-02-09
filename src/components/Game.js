@@ -5,6 +5,7 @@ import ListOfWords from './ListOfWords'
 import Score from './Score'
 import WordSubmit from './WordSubmit'
 import GameOver from './GameOver'
+import Error from './Error'
 import _ from 'lodash'
 import axios from 'axios'
 import { wordScore } from '../utilities'
@@ -17,7 +18,8 @@ class Game extends Component {
       word: '',
       words: [],
       gaveOver: false,
-      dictionaryWords: []
+      dictionaryWords: [],
+      errorMessage: false
     };
   }
 
@@ -41,19 +43,6 @@ class Game extends Component {
     this.setState({ word: e.target.value.toUpperCase() });
   }
 
-  submitWord = (e) => {
-    const inputWord = this.state.word
-    this.setState(prevState => {
-      return {
-        word: '',
-        words: _.concat(prevState.words, {
-          word: inputWord,
-          score: wordScore(inputWord)
-        })
-      }
-    })
-  }
-
   checkWordInDictionary = () => {
     return axios.get('/dictionary', {
       params: {
@@ -62,13 +51,48 @@ class Game extends Component {
     }) 
   }
 
+  submitWord = (e) => {
+    const inputWord = this.state.word
+    this.setState(prevState => {
+      return {
+        errorMessage: false
+      }
+    })
+    if (this.checkIsWordOnBoard(inputWord)) {
+      this.checkWordInDictionary()
+        .then((result) => {
+          this.setState(prevState => {
+            return {
+              word: '',
+              words: _.concat(prevState.words, {
+                word: inputWord,
+                score: wordScore(inputWord)
+              })
+            }
+          })
+        })
+        .catch((error) => {
+          this.setState(prevState => {
+            return {
+              errorMessage: true
+            }
+          })
+        })
+    }
+  }
+
   handleKeyPress = (e) => {
     const inputWord = this.state.word
+
     if (e.key === 'Enter') {
+      this.setState(prevState => {
+        return {
+          errorMessage: false
+        }
+      })
       if (this.checkIsWordOnBoard(inputWord)) {
         this.checkWordInDictionary()
           .then((result) => {
-            console.log(result.data)
             this.setState(prevState => {
               return {
                 word: '',
@@ -80,7 +104,11 @@ class Game extends Component {
             })
           })
           .catch((error) => {
-            console.log('error')
+            this.setState(prevState => {
+              return {
+                errorMessage: true
+              }
+            })
           })
       }
     }
@@ -155,6 +183,7 @@ class Game extends Component {
           <Board board={this.state.board} />
           <WordSubmit word={this.state.word} words={this.state.words} handleChange={this.handleChange} submitWord={this.submitWord} handleKeyPress={this.handleKeyPress} scoreResult={this.scoreResult} />
           {this.state.gameOver && <GameOver />}
+          {this.state.errorMessage && <Error />}
         </div>
       </div>
     )

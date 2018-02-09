@@ -103,8 +103,6 @@ body {
   color: white;
 }
 
-
-
 .listOfWords > ul > li {
   font-weight:normal; 
   font-size:25px; 
@@ -136,8 +134,22 @@ body {
   0% {
     color: blue;
   }
-  
-  
 }
 
+
+.error-message {
+  position: absolute;
+  left: 910px;
+  top: 590px;
+  width: 300px;
+  border: 1px solid;
+  margin: 10px 0px;
+  padding:15px 10px 15px 50px;
+  background-repeat: no-repeat;
+  background-size: 35px 30px;
+  background-position: 10px center;
+  color: #9F6000;
+  background-color: #FEEFB3;
+  background-image: url('https://vignette.wikia.nocookie.net/runescapeclans/images/c/cb/Warning.png/revision/latest?cb=20110113055526');
+}
   
