@@ -11,8 +11,8 @@ Player searches for words that can be constructed from the letters of sequential
 ### Built With
 ---
 * [React](https://reactjs.org/)
-* [Node] (https://nodejs.org/en/)
-* [Express] (https://expressjs.com/)
+* [NodeJS](https://nodejs.org/en/)
+* [ExpressJS](https://expressjs.com/)
 
 ### Author
 ---
