@@ -14,8 +14,8 @@ app.get('/dictionary', (req, res) => {
     let options = {
         url: 'https://od-api.oxforddictionaries.com/api/v1/entries/en/' + param ,
         headers: {
-            'app_id': '32c2be1e', 
-            'app_key': '4c44c4127979ee5c9a06f51a58339fe1'
+            'app_id': process.env.app_id, 
+            'app_key': process.env.app_key
         }
       };
     request(options, (error, response, body) => {
