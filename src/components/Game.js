@@ -41,6 +41,17 @@ class Game extends Component {
       .map(characters => characters.join(''))
   }
 
+  onKeyDown = (e) => {
+    if (e.keyCode === 8) {
+      this.setState(prevState => {
+        return {
+          errorMessage: false,
+          wordExist: false
+        }
+      })
+    }
+  }
+
   handleChange = (e) => {
     this.setState({ word: e.target.value.toUpperCase() });
   }
@@ -61,7 +72,7 @@ class Game extends Component {
         wordExist: false
       }
     })
-    
+
     if (this.state.words.map(scoredWord => scoredWord.word).includes(inputWord)) {
       this.setState(prevState => {
         return {
@@ -168,7 +179,7 @@ class Game extends Component {
           <ListOfWords words={this.state.words} currentScore={this.state.currentScore} />
           <Score words={this.state.words} />
           <Board board={this.state.board} />
-          <WordSubmit word={this.state.word} words={this.state.words} handleChange={this.handleChange} submitWord={this.submitWord} handleKeyPress={this.handleKeyPress} scoreResult={this.scoreResult} />
+          <WordSubmit word={this.state.word} words={this.state.words} handleChange={this.handleChange} onKeyDown={this.onKeyDown} submitWord={this.submitWord} handleKeyPress={this.handleKeyPress} scoreResult={this.scoreResult} />
           {this.state.gameOver && <GameOver />}
           {this.state.errorMessage && <Error />}
           {this.state.wordExist && <WordExist />}
