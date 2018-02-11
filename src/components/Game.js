@@ -9,6 +9,7 @@ import Error from './Error'
 import _ from 'lodash'
 import axios from 'axios'
 import { wordScore } from '../utilities'
+import WordExist from './WordExist'
 
 class Game extends Component {
   constructor(props) {
@@ -19,7 +20,8 @@ class Game extends Component {
       words: [],
       gaveOver: false,
       dictionaryWords: [],
-      errorMessage: false
+      errorMessage: false,
+      wordExist: false
     };
   }
 
@@ -48,17 +50,26 @@ class Game extends Component {
       params: {
         inputWord: this.state.word
       }
-    }) 
+    })
   }
 
-  submitWord = (e) => {
+  submitWord = () => {
     const inputWord = this.state.word
     this.setState(prevState => {
       return {
-        errorMessage: false
+        errorMessage: false,
+        wordExist: false
       }
     })
-    if (this.checkIsWordOnBoard(inputWord)) {
+    
+    if (this.state.words.map(scoredWord => scoredWord.word).includes(inputWord)) {
+      this.setState(prevState => {
+        return {
+          word: '',
+          wordExist: true
+        }
+      })
+    } else if (this.checkIsWordOnBoard(inputWord)) {
       this.checkWordInDictionary()
         .then((result) => {
           this.setState(prevState => {
@@ -82,35 +93,14 @@ class Game extends Component {
   }
 
   handleKeyPress = (e) => {
-    const inputWord = this.state.word
-
-    if (e.key === 'Enter') {
-      this.setState(prevState => {
-        return {
-          errorMessage: false
-        }
-      })
-      if (this.checkIsWordOnBoard(inputWord)) {
-        this.checkWordInDictionary()
-          .then((result) => {
-            this.setState(prevState => {
-              return {
-                word: '',
-                words: _.concat(prevState.words, {
-                  word: inputWord,
-                  score: wordScore(inputWord)
-                })
-              }
-            })
-          })
-          .catch((error) => {
-            this.setState(prevState => {
-              return {
-                errorMessage: true
-              }
-            })
-          })
+    this.setState(prevState => {
+      return {
+        errorMessage: false,
+        wordExist: false
       }
+    })
+    if (e.key === 'Enter') {
+      this.submitWord()
     }
   }
 
@@ -167,11 +157,8 @@ class Game extends Component {
         }
       }
     }
-
     return false
   }
-
-
 
   render() {
     return (
@@ -184,6 +171,7 @@ class Game extends Component {
           <WordSubmit word={this.state.word} words={this.state.words} handleChange={this.handleChange} submitWord={this.submitWord} handleKeyPress={this.handleKeyPress} scoreResult={this.scoreResult} />
           {this.state.gameOver && <GameOver />}
           {this.state.errorMessage && <Error />}
+          {this.state.wordExist && <WordExist />}
         </div>
       </div>
     )

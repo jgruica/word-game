@@ -137,7 +137,7 @@ body {
 }
 
 
-.error-message {
+.error-message, .exist-message {
   position: absolute;
   left: 910px;
   top: 590px;
@@ -152,4 +152,5 @@ body {
   background-color: #FEEFB3;
   background-image: url('https://vignette.wikia.nocookie.net/runescapeclans/images/c/cb/Warning.png/revision/latest?cb=20110113055526');
 }
+
   
