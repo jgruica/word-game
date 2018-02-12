@@ -6,10 +6,11 @@ import Score from './Score'
 import WordSubmit from './WordSubmit'
 import GameOver from './GameOver'
 import Error from './Error'
+import WordExist from './WordExist'
+import Reset from './Reset'
 import _ from 'lodash'
 import axios from 'axios'
 import { wordScore } from '../utilities'
-import WordExist from './WordExist'
 
 class Game extends Component {
   constructor(props) {
@@ -18,7 +19,7 @@ class Game extends Component {
       board: this.generateRandomBoard(),
       word: '',
       words: [],
-      gaveOver: false,
+      gameOver: false,
       dictionaryWords: [],
       errorMessage: false,
       wordExist: false
@@ -100,6 +101,12 @@ class Game extends Component {
             }
           })
         })
+    } else {
+      this.setState(prevState => {
+        return {
+          errorMessage: true
+        }
+      })
     }
   }
 
@@ -116,6 +123,7 @@ class Game extends Component {
   }
 
   timeIsOver = () => {
+    console.log(1)
     this.setState(prevState => {
       return {
         gameOver: true
@@ -171,6 +179,10 @@ class Game extends Component {
     return false
   }
 
+  resetGame = () => {
+    window.location.reload()
+  }
+
   render() {
     return (
       <div className='game' >
@@ -180,7 +192,11 @@ class Game extends Component {
           <Score words={this.state.words} />
           <Board board={this.state.board} />
           <WordSubmit word={this.state.word} words={this.state.words} handleChange={this.handleChange} onKeyDown={this.onKeyDown} submitWord={this.submitWord} handleKeyPress={this.handleKeyPress} scoreResult={this.scoreResult} />
-          {this.state.gameOver && <GameOver />}
+          {this.state.gameOver &&
+            <div>
+              <GameOver />
+              <Reset resetGame={this.resetGame} />
+            </div>}
           {this.state.errorMessage && <Error />}
           {this.state.wordExist && <WordExist />}
         </div>

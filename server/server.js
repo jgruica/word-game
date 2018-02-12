@@ -19,6 +19,7 @@ app.get('/dictionary', (req, res) => {
         }
       };
     request(options, (error, response, body) => {
+        
         if (!error && response.statusCode == 200) {
             res.status(200).send('ok')
           }
