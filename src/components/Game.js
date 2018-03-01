@@ -23,7 +23,7 @@ class Game extends Component {
       dictionaryWords: [],
       errorMessage: false,
       wordExist: false,
-      clickedOnBoard: false
+      wordPositions: []
     };
   }
 
@@ -46,24 +46,29 @@ class Game extends Component {
   onMouseDownOnBoard = (row, column) => {
     this.setState({ 
       word: this.state.board[row][column],
-      clickedOnBoard: true
+      wordPositions: [{ row, column }],
     })
   }
 
-  onMouseUpOnBoard = (row, column) => {
-    this.setState({ clickedOnBoard: false})
-    this.submitWord()
-  }
-
   onMouseDownHover = (row, column) => {
-    if (this.state.clickedOnBoard) {
-      this.setState(prevState => { 
+    if (this.state.wordPositions.length) {
+      this.setState(prevState => {
+        const cutoffIndex = prevState.wordPositions.findIndex(p => row === p.row && column === p.column)
+        const newPositions = cutoffIndex >= 0 
+          ? prevState.wordPositions.slice(0, cutoffIndex + 1) 
+          : prevState.wordPositions.concat([{ row, column }])
+          
         return {
-          word: prevState.word + this.state.board[row][column]
+          word: newPositions.map(p => this.state.board[p.row][p.column]).join(''),
+          wordPositions: newPositions
         }
       })  
     }
-  } 
+  }
+
+  onMouseUpOnBoard = (row, column) => {
+    this.submitWord()
+  }
 
   onKeyDown = (e) => {
     if (e.keyCode === 8) {
@@ -90,7 +95,8 @@ class Game extends Component {
     const inputWord = this.state.word
     this.setState({
       errorMessage: false,
-      wordExist: false
+      wordExist: false,
+      wordPositions: []
     })
 
     if (this.state.words.map(scoredWord => scoredWord.word).includes(inputWord)) {
@@ -98,7 +104,7 @@ class Game extends Component {
         word: '',
         wordExist: true
       })
-    } else if (this.checkIsWordOnBoard(inputWord)) {
+    } else if (this.checkIsWordOnBoard(inputWord) && this.state.word.length >= 2) {
       this.checkWordInDictionary()
         .then((result) => {
           this.setState(prevState => {
@@ -192,7 +198,7 @@ class Game extends Component {
           <Timer timeIsOver={this.timeIsOver} />
           <ListOfWords words={this.state.words} currentScore={this.state.currentScore} />
           <Score words={this.state.words} />
-          <Board board={this.state.board} onMouseDownOnBoard={this.onMouseDownOnBoard} onMouseUpOnBoard={this.onMouseUpOnBoard} onMouseDownHover={this.onMouseDownHover}/>
+          <Board board={this.state.board} onMouseDownOnBoard={this.onMouseDownOnBoard} onMouseUpOnBoard={this.onMouseUpOnBoard} onMouseDownHover={this.onMouseDownHover} wordPositions={this.state.wordPositions} />
           <WordSubmit word={this.state.word} words={this.state.words} handleChange={this.handleChange} onKeyDown={this.onKeyDown} submitWord={this.submitWord} handleKeyPress={this.handleKeyPress} scoreResult={this.scoreResult} />
           {this.state.gameOver &&
             <div>

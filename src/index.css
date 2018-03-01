@@ -28,6 +28,7 @@ body {
 }
 
 .board button {
+  margin: 5px;
   width: 100px;
   height: 100px;
   font-size: 50px;
@@ -36,7 +37,7 @@ body {
   border-radius: 10%;
 }
 
-.board button:active {
+.board button:active, .board button.active {
   background-color: rgb(246, 142, 67);
 }
 
@@ -166,7 +167,7 @@ body {
 .error-message, .exist-message {
   position: absolute;
   left: 910px;
-  top: 590px;
+  top: 630px;
   width: 300px;
   border: 1px solid;
   margin: 10px 0px;
