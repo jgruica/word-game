@@ -40,6 +40,10 @@ body {
   background-color: rgb(246, 142, 67);
 }
 
+.board button:hover {
+  background-color: rgb(246, 142, 67);
+}
+
 .word-submit {
   width: 380px;
   display: block;

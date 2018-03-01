@@ -22,7 +22,8 @@ class Game extends Component {
       gameOver: false,
       dictionaryWords: [],
       errorMessage: false,
-      wordExist: false
+      wordExist: false,
+      clickedOnBoard: false
     };
   }
 
@@ -42,13 +43,33 @@ class Game extends Component {
       .map(characters => characters.join(''))
   }
 
+  onMouseDownOnBoard = (row, column) => {
+    this.setState({ 
+      word: this.state.board[row][column],
+      clickedOnBoard: true
+    })
+  }
+
+  onMouseUpOnBoard = (row, column) => {
+    this.setState({ clickedOnBoard: false})
+    this.submitWord()
+  }
+
+  onMouseDownHover = (row, column) => {
+    if (this.state.clickedOnBoard) {
+      this.setState(prevState => { 
+        return {
+          word: prevState.word + this.state.board[row][column]
+        }
+      })  
+    }
+  } 
+
   onKeyDown = (e) => {
     if (e.keyCode === 8) {
-      this.setState(prevState => {
-        return {
-          errorMessage: false,
-          wordExist: false
-        }
+      this.setState({
+        errorMessage: false,
+        wordExist: false
       })
     }
   }
@@ -67,19 +88,15 @@ class Game extends Component {
 
   submitWord = () => {
     const inputWord = this.state.word
-    this.setState(prevState => {
-      return {
-        errorMessage: false,
-        wordExist: false
-      }
+    this.setState({
+      errorMessage: false,
+      wordExist: false
     })
 
     if (this.state.words.map(scoredWord => scoredWord.word).includes(inputWord)) {
-      this.setState(prevState => {
-        return {
-          word: '',
-          wordExist: true
-        }
+      this.setState({
+        word: '',
+        wordExist: true
       })
     } else if (this.checkIsWordOnBoard(inputWord)) {
       this.checkWordInDictionary()
@@ -95,27 +112,17 @@ class Game extends Component {
           })
         })
         .catch((error) => {
-          this.setState(prevState => {
-            return {
-              errorMessage: true
-            }
-          })
+          this.setState({ errorMessage: true })
         })
     } else {
-      this.setState(prevState => {
-        return {
-          errorMessage: true
-        }
-      })
+      this.setState({ errorMessage: true })
     }
   }
 
   handleKeyPress = (e) => {
-    this.setState(prevState => {
-      return {
-        errorMessage: false,
-        wordExist: false
-      }
+    this.setState({
+      errorMessage: false,
+      wordExist: false
     })
     if (e.key === 'Enter') {
       this.submitWord()
@@ -123,12 +130,7 @@ class Game extends Component {
   }
 
   timeIsOver = () => {
-    console.log(1)
-    this.setState(prevState => {
-      return {
-        gameOver: true
-      }
-    })
+    this.setState({ gameOver: true })
   }
 
   checkIsWordOnBoard = (word) => {
@@ -190,7 +192,7 @@ class Game extends Component {
           <Timer timeIsOver={this.timeIsOver} />
           <ListOfWords words={this.state.words} currentScore={this.state.currentScore} />
           <Score words={this.state.words} />
-          <Board board={this.state.board} />
+          <Board board={this.state.board} onMouseDownOnBoard={this.onMouseDownOnBoard} onMouseUpOnBoard={this.onMouseUpOnBoard} onMouseDownHover={this.onMouseDownHover}/>
           <WordSubmit word={this.state.word} words={this.state.words} handleChange={this.handleChange} onKeyDown={this.onKeyDown} submitWord={this.submitWord} handleKeyPress={this.handleKeyPress} scoreResult={this.scoreResult} />
           {this.state.gameOver &&
             <div>

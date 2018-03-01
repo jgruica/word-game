@@ -10,7 +10,7 @@ class Board extends Component {
             {this.props.board.map((row, rowIndex) => 
               <tr key={rowIndex}> 
                 {row.split('').map((column, columnIndex) => 
-                  <td key={columnIndex}><button> {column} </button></td>
+                  <td key={columnIndex}><button onMouseDown={e => this.props.onMouseDownOnBoard(rowIndex, columnIndex)} onMouseEnter={e => this.props.onMouseDownHover(rowIndex, columnIndex)} onMouseUp={e => this.props.onMouseUpOnBoard(rowIndex, columnIndex)}> {column} </button></td>
                 )}
               </tr>
             )}
