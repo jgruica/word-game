@@ -5,7 +5,10 @@ class WordExist extends Component {
   render() {
     return (
       <div className="exist-message">
-            That word already exist
+      <br/>
+        <div className="error-text">
+          That word already exist
+            </div>
       </div>
     )
   }

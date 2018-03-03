@@ -166,18 +166,28 @@ body {
 
 .error-message, .exist-message {
   position: absolute;
-  left: 910px;
-  top: 630px;
+  left: 1100px;
+  top: 580px;
   width: 300px;
-  border: 1px solid;
   margin: 10px 0px;
-  padding:15px 10px 15px 50px;
+  height: 100px;
   background-repeat: no-repeat;
   background-size: 35px 30px;
   background-position: 10px center;
-  color: #9F6000;
-  background-color: #FEEFB3;
+
+
   background-image: url('https://vignette.wikia.nocookie.net/runescapeclans/images/c/cb/Warning.png/revision/latest?cb=20110113055526');
+} 
+
+.error-text {
+  padding:15px 10px 15px 50px;
+  font-size: 25px;
+  color: #3e8bd9;
+  font-weight: bold;
+  position: absolute;
+  top: 70px;
+  right: 110px;
+  width: 300px;
 }
 
   

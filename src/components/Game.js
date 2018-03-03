@@ -104,7 +104,7 @@ class Game extends Component {
         word: '',
         wordExist: true
       })
-    } else if (this.checkIsWordOnBoard(inputWord) && this.state.word.length >= 2) {
+    } else if (this.checkIsWordOnBoard(inputWord) && this.state.word.length > 2) {
       this.checkWordInDictionary()
         .then((result) => {
           this.setState(prevState => {
